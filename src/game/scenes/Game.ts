@@ -1,36 +1,56 @@
 import { EventBus } from '../EventBus';
 import { Scene } from 'phaser';
 
-export class Game extends Scene
-{
+export class Game extends Scene {
     camera: Phaser.Cameras.Scene2D.Camera;
     background: Phaser.GameObjects.Image;
+    lowCloud: Phaser.GameObjects.Image;
+    highCloud: Phaser.GameObjects.Image;
+    comet: Phaser.GameObjects.Image;
+    
     gameText: Phaser.GameObjects.Text;
 
-    constructor ()
-    {
+    constructor() {
         super('Game');
     }
 
-    create ()
-    {
+    preload() {
+        console.log("this is preload main-game");
+        
+        this.load.image("main-1", "game-assets/backgrounds/main-1.png")
+        this.load.image("main-2", "game-assets/backgrounds/main-2.png")
+        this.load.image("main-3", "game-assets/backgrounds/main-3.png")
+        this.load.image("main-4", "game-assets/backgrounds/main-4.png")
+
+
+
+    }
+    create() {
         this.camera = this.cameras.main;
-        this.camera.setBackgroundColor(0x00ff00);
+        // this.camera.setBackgroundColor(0x00ff00);
 
-        this.background = this.add.image(512, 384, 'background');
-        this.background.setAlpha(0.5);
+        this.background = this.add.image(512, 384, "main-1");
+        this.background.setScale(2)
 
-        this.gameText = this.add.text(512, 384, 'Make something fun!\nand share it with us:\nsupport@phaser.io', {
-            fontFamily: 'Arial Black', fontSize: 38, color: '#ffffff',
-            stroke: '#000000', strokeThickness: 8,
-            align: 'center'
-        }).setOrigin(0.5).setDepth(100);
+        this.lowCloud = this.add.image(512,384, "main-2")
+        this.lowCloud.setScale(2)
+
+        this.comet = this.add.image(512,384, "main-3")
+        this.comet.setScale(2)
+
+        this.highCloud = this.add.image(512,384, "main-4")
+        this.highCloud.setScale(2)
+        // this.add.image(400, 300, "main-2");
+        // this.add.image(400, 300, "main-3");
+        // this.add.image(400, 300, "main-4");
+
+
+      
 
         EventBus.emit('current-scene-ready', this);
     }
 
-    changeScene ()
-    {
+    changeScene() {
         this.scene.start('GameOver');
     }
 }
