@@ -19,7 +19,14 @@ const config: Phaser.Types.Core.GameConfig = {
         MainMenu,
         MainGame,
         GameOver
-    ]
+    ],
+    physics: {
+        default: 'arcade',
+        arcade: {
+            gravity: { y: 300, x: 0 },
+            debug: false
+        }
+    }
 };
 
 const StartGame = (parent: string) => {
